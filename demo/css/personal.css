@@ -48,3 +48,16 @@
 .red{
     color: red !important;
 }
+.alertBox{
+    position: absolute;
+    top:10px;
+    width:100%;
+}
+.alertBox div{
+    width:50%;
+    margin: 0 auto;
+}
+.alert{
+    display: none;
+    text-align: center;
+}

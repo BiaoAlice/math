@@ -11,6 +11,9 @@
     <script src="./js/personal.js"></script>
 </head>
 <body>
+    <div class="alertBox">
+      <div class="alert alert-danger" role="alert"></div>
+    </div>
     <div class="person">
         <div class="header">
             <div class="header_co">
@@ -57,9 +60,9 @@
                       </div>
                     <div class="form-group">
                       <label for="newPsd">密码</label>
-                      <input type="password" class="form-control" id="newPsd" placeholder="请输入新密码">
+                      <input type="password" class="form-control" id="newPsd" placeholder="请输入6～10为纯数字密码">
                     </div>
-                    <button class="btn btn-primary">修改信息</button>
+                    <button class="btn btn-primary" id="change">修改信息</button>
                   </div>
             </div>
         </div>
