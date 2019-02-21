@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/adminHome.css">
+    <link rel="stylesheet" href="./css/adminStudent.css">
+    <script src="./js/jq.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="./js/adminStudent.js"></script>
+</head>
+<body>
+    <div class="box">
+        <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="./adminHome.html">后台系统</a>
+                    </div>
+                </div>
+            </nav>
+        <div class="body">
+            <div class="navleft">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="./adminStudent.html">学生管理</a></li>
+                    <li role="presentation"><a href="javascript:;">作业下发</a></li>
+                </ul>
+            </div>
+            <div class="content">
+                <h2>学生信息列表</h2>
+                <table class="table table-striped"">
+                    <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>密码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>201513007940</td>
+                            <td>liyang</td>
+                            <td>123456</td>
+                            <td>
+                                <button 
+                                    class="btn btn-primary" 
+                                    data-toggle="modal"
+                                    data-target="#updata"
+                                    key="0"
+                                >修改</button>
+                                <button  class="btn btn-danger" >删除</button>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>201513007940</td>
+                            <td>liyang</td>
+                            <td>123456</td>
+                            <td>
+                                <button 
+                                    class="btn btn-primary" 
+                                    data-toggle="modal"
+                                    data-target="#updata"
+                                    key="1"
+                                >修改</button>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="add">
+                    <span>如需添加用户请点击</span>
+                    <button 
+                        class="btn btn-link" 
+                        data-toggle="modal"
+                        data-target="#add"
+                    >
+                    添加学生
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    <!-- 修改信息弹出框 -->
+    <div class="modal fade" id="updata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">添加学生</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="userId">学号</label>
+                        <input type="text" class="form-control" id="userId"  disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="userName">姓名</label>
+                        <input type="text" class="form-control" id="userName" placeholder="请输入用户名" >
+                    </div>
+                    <div class="form-group">
+                        <label for="userPsd">密码</label>
+                        <input type="password" class="form-control" id="userPsd" placeholder="请输入密码">
+                    </div>
+                    <button class="btn btn-primary">确认修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加用户弹出框 -->
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">修改信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="newuserId">学号</label>
+                            <input type="text" class="form-control" id="newuserId"  placeholder="请输入学号">
+                        </div>
+                        <div class="form-group">
+                            <label for="newuserName">姓名</label>
+                            <input type="text" class="form-control" id="newuserName" placeholder="请输入用户名" >
+                        </div>
+                        <div class="form-group">
+                            <label for="newuserPsd">密码</label>
+                            <input type="password" class="form-control" id="newuserPsd" placeholder="请输入密码">
+                        </div>
+                        <button class="btn btn-primary">确认添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

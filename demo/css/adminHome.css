@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+}
+.body{
+    position: absolute;
+    top:50px;
+    width: 100%;
+}
+.navleft{
+    position: fixed;
+    top:50px;
+    left:0;
+    width:180px;
+    height: 100vh;
+    background-color: #f8f8f8;
+    padding-top:10px;
+    text-align: center;
+}
+.right{
+    margin-left: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height:40vh;
+}

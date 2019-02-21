@@ -1,0 +1,18 @@
+.lianxi{
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto 0;
+    border: 1px sloid red;
+}
+.jichulianxi{
+    background-color:brown;
+}
+.lianxi .fc label{
+    margin-left: 30px;
+}
+p{
+    margin-top: 30px;
+}
+.lianxi .content{
+    height: 600px;
+}

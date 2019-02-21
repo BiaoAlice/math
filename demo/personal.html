@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/personal.css">
+    <script src="./js/jq.js"></script>
+    <script src="./js/personal.js"></script>
+</head>
+<body>
+    <div class="person">
+        <div class="header">
+            <div class="header_co">
+             <!-- 左 -->
+            <span class="he_lf"><a href="./index.html">数学网</a><b>-寻找热爱学习的你</b></span>
+            <!-- 右 -->
+            <div class="he_ri">
+                <span><a href="./personal.html">个人中心</a></span>
+                <span><a href="./help.html">帮助反馈</a></span>
+                <span><a href="./about.html">关于我们</a></span>
+            </div>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="person1 active "><a href="javscript:;">个人信息</a></li>
+                <li role="presentation" class="changePerson"><a href="javscript:;">修改信息</a></li>
+            </ul>
+            <div class="msg1 show">
+                <form class="form">
+                    <div class="form-group">
+                      <label for="userId">学号</label>
+                      <input type="text" class="form-control" id="userId"  disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="userName">姓名</label>
+                        <input type="text" class="form-control" id="userName" disabled>
+                      </div>
+                    <div class="form-group">
+                      <label for="userPsd">密码</label>
+                      <input type="password" class="form-control" id="userPsd" disabled>
+                    </div>
+                </form>
+            </div>
+            <div class="changeMsg ">
+                <div class="form">
+                    <div class="form-group">
+                      <label for="userId">学号</label>
+                      <input type="text" class="form-control" id="userId"  disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="newName">姓名</label>
+                        <input type="text" class="form-control" id="newName" placeholder="请输入新姓名">
+                      </div>
+                    <div class="form-group">
+                      <label for="newPsd">密码</label>
+                      <input type="password" class="form-control" id="newPsd" placeholder="请输入新密码">
+                    </div>
+                    <button class="btn btn-primary">修改信息</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+*{
+    margin:0;
+    padding:0;
+}
+.header{
+    width: 100%;
+    background-color:#66ccff;
+}
+.header .header_co{
+    width: 1200px;
+    height: 40px;
+    margin: 0 auto;
+}
+/* 头部左 */
+.he_lf{
+    float: left;
+    line-height: 40px;
+}
+/* 头部右 */
+.he_ri{
+    float: right;
+    line-height: 40px;
+}
+.he_ri a{
+    text-decoration: none;
+    margin-left: 20px;
+    color: #000;
+}
+.content{
+    width:1200px;
+    margin:10px auto;
+}
+.msg1,.changeMsg{
+    text-align: center;
+    display: none;
+}
+.show{
+    display: block;
+}
+.form{
+    width:400px;
+    margin:20px auto;
+}
+.btn{
+    width:150px;
+    margin: 10px auto;
+}
+.red{
+    color: red !important;
+}

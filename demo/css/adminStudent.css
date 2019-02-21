@@ -1,0 +1,14 @@
+.content{
+    margin-left: 180px;
+    padding: 0 100px;
+}
+h2{
+   text-align: center ;
+}
+th,td{
+    text-align: center;
+    line-height: 75px;
+}
+.add{
+    text-align: center;
+}
