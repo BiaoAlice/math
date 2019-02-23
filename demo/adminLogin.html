@@ -7,19 +7,24 @@
     <title>Document</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/jq.js"></script>
+    <script src="./js/adminLogin.js"></script>
 </head>
 <body>
+    <div class="alertBox">
+      <div class="alert alert-danger" role="alert"></div>
+    </div>
     <div class="login">
         <div class="form">
                 <div class="form-group">
-                  <label for="userId">用户名</label>
+                  <label for="userId">账号</label>
                   <input type="text" class="form-control" id="userId" placeholder="请输入用户名">
                 </div>
                 <div class="form-group">
                   <label for="userPsd">密码</label>
                   <input type="password" class="form-control" id="userPsd" placeholder="请输入密码">
                 </div>
-                <button class="btn btn-primary">登录</button>
+                <button class="btn btn-primary" id="login">登录</button>
         </div>
     </div>
 </body>

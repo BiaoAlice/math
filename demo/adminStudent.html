@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./css/adminStudent.css">
     <script src="./js/jq.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="./js/adminStudent.js"></script>
 </head>
 <body>
     <div class="box">
@@ -47,35 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>201513007940</td>
-                            <td>liyang</td>
-                            <td>123456</td>
-                            <td>
-                                <button 
-                                    class="btn btn-primary" 
-                                    data-toggle="modal"
-                                    data-target="#updata"
-                                    key="0"
-                                >修改</button>
-                                <button  class="btn btn-danger" >删除</button>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>201513007940</td>
-                            <td>liyang</td>
-                            <td>123456</td>
-                            <td>
-                                <button 
-                                    class="btn btn-primary" 
-                                    data-toggle="modal"
-                                    data-target="#updata"
-                                    key="1"
-                                >修改</button>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 <div class="add">
@@ -124,7 +95,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">修改信息</h4>
+                        <h4 class="modal-title" id="exampleModalLabel">添加学生</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -144,5 +115,117 @@
                 </div>
             </div>
         </div>
+    <script>
+        let list=[];
+        $.ajax({
+            type:"POST",
+            url:"../user.php",
+            data:{type:"select"},
+            success(res){
+                let json = JSON.parse(res),
+                    str='';
+                list = json.data;
+                for(let i=0;i<list.length;i++){
+                    str +=` <tr>
+                            <td>${list[i].studentId}</td>
+                            <td>${list[i].studentName}</td>
+                            <td>${list[i].studentPsd}</td>
+                            <td>
+                                <button 
+                                    class="btn btn-primary" 
+                                    data-toggle="modal"
+                                    data-target="#updata"
+                                    key=${i}
+                                >修改</button>
+                                <button class="remove btn btn-danger" key=${i} >删除</button>
+                                
+                            </td>
+                        </tr>`
+                }
+                $('tbody').html(str);
+                $('.remove').on('click',function(e){
+                    $.ajax({
+                        url:"../user.php",
+                        type:"POST",
+                        data:{
+                            type:"delete",
+                            studentId:list[$(this).attr('key')].studentId
+                        },
+                        success(res){
+                            alert('删除成功');
+                            window.location.href="./adminStudent.html";
+                        }
+                    })
+                })
+            }
+        })
+        $('#updata').on('show.bs.modal', function (e) {
+            let index = e.relatedTarget.getAttribute('key');
+            let _this = $(this);
+            let value = $(this).find('.modal-body input').eq(0).val(list[index].studentId).val();
+            $(this).find('.modal-body button').on('click',function(){
+                let nameReg = /^[\u4E00-\u9FA5]{2,4}$/,
+                    psdReg = /^\d{6,10}$/,
+                    name= _this.find('.modal-body input').eq(1).val();
+                    psd = _this.find('.modal-body input').eq(2).val();
+                    console.log(value);
+                if(nameReg.test(name) && psdReg.test(psd)){
+                    $.ajax({
+                        type:"POST",
+                        url:"../user.php",
+                        data:{
+                        type:"change",
+                        studentId:value,
+                        studentName:name,
+                        studentPsd:psd
+                        },
+                        success(res){
+                            console.log(res);
+                            alert('修改成功！');
+                            window.location.href="./adminStudent.html";
+                        }
+                    });
+                }else{
+                    _this.find('.modal-body input').eq(1).val('');
+                    _this.find('.modal-body input').eq(2).val('');
+                }
+        })
+    })
+    $('#add').on('show.bs.modal', function (e) {
+            let _this = $(this);
+            let studentId = $(this).find('.modal-body input').eq(0).val();
+            let studentName = $(this).find('.modal-body input').eq(1).val();
+            let studentPsd = $(this).find('.modal-body input').eq(2).val();
+            $(this).find('.modal-body button').on('click',function(){
+                let nameReg = /^[\u4E00-\u9FA5]{2,4}$/,
+                    psdReg = /^\d{6,10}$/,
+                    idReg = /^\d{12}$/,
+                    studentId = _this.find('.modal-body input').eq(0).val(),
+                    studentName = _this.find('.modal-body input').eq(1).val(),
+                    studentPsd = _this.find('.modal-body input').eq(2).val();
+                if(nameReg.test(studentName) && psdReg.test(studentPsd) && idReg.test(studentId)){
+                    $.ajax({
+                        type:"POST",
+                        url:"../user.php",
+                        data:{
+                        type:"add",
+                        studentId,
+                        studentName,
+                        studentPsd
+                        },
+                        success(res){
+                            console.log(res);
+                            alert('添加成功');
+                            window.location.href="./adminStudent.html";
+                        }
+                    });
+                }else{
+                        alert("请输入正确的信息");
+                    _this.find('.modal-body input').eq(1).val('');
+                    _this.find('.modal-body input').eq(2).val('');
+                }
+        })
+    })
+    </script>
 </body>
 </html>

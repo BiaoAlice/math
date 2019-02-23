@@ -7,6 +7,47 @@
     <title>班级作业</title>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/zuoye.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jq.js"></script>
+    <script type="text/javascript" src="js/quiz.js"></script>
+    <script>
+          $(function(){
+        $('.btn').on('click',function(){
+            window.location.href="./zuoye.html";
+        })
+        $.ajax({
+            url:'../user.php',
+            type:"POST",
+            data:{
+                type:"getWork"
+            },
+            success(res){
+                let list = JSON.parse(res).data;
+                let questions = [];
+                list.forEach(item => {
+                    console.log(item.opationC)
+                    if(item.opationC == ''){
+                        questions.push({
+                        'question':item.title,
+                        'answers':[item.opationA,item.opationB],
+                        'correctAnswer':item.answer
+                        })
+                    }else{
+                        questions.push({
+                        'question':item.title,
+                        'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                        'correctAnswer':item.answer
+                        })
+                    } 
+                });
+                var init={'questions':questions};
+                    $('#quiz-container').jquizzy({
+                        questions: init.questions
+                    });
+            }
+    })
+})    
+    </script>
 </head>
 <body>
    <div>
@@ -51,8 +92,13 @@
        </div>
        <!-- 班级作业 -->
        <div class="zuoye">
-            
-       </div>
+            <div>
+                <button class="btn btn-primary">重新加载</button>
+            </div>
+            <div class="demo">
+                <div id='quiz-container'></div>
+            </div>
+        </div>
         <div class="friendlink">
             <div class="friend"><span>友情链接</span></div>
             <div class="lj">

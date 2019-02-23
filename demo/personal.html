@@ -8,7 +8,6 @@
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/personal.css">
     <script src="./js/jq.js"></script>
-    <script src="./js/personal.js"></script>
 </head>
 <body>
     <div class="alertBox">
@@ -36,7 +35,7 @@
                 <form class="form">
                     <div class="form-group">
                       <label for="userId">学号</label>
-                      <input type="text" class="form-control" id="userId"  disabled>
+                      <input type="text" class="form-control" id="userId"  disabled >
                     </div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
@@ -51,8 +50,8 @@
             <div class="changeMsg ">
                 <div class="form">
                     <div class="form-group">
-                      <label for="userId">学号</label>
-                      <input type="text" class="form-control" id="userId"  disabled>
+                      <label for="olduserId">学号</label>
+                      <input type="text" class="form-control" id="olduserId"  disabled>
                     </div>
                     <div class="form-group">
                         <label for="newName">姓名</label>
@@ -67,5 +66,70 @@
             </div>
         </div>
     </div>
+    <script>
+      //页面信息的显示
+      $('.changePerson').on('click',function(){
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+        $('.show').removeClass('show');
+        $('.changeMsg').addClass('show');
+    })
+    $('.person1').on('click',function(){
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+        $('.show').removeClass('show');
+        $('.msg1').addClass('show');
+    })
+      $('#userId').val(localStorage.getItem('studentId'));
+      $('#userName').val(localStorage.getItem('studentName'));
+      $('#userPsd').val(localStorage.getItem('studentPsd'));
+      $('#olduserId').val(localStorage.getItem('studentId'));   
+      
+      $('#change').on('click',function(){
+        let nameReg = /^[\u4E00-\u9FA5]{2,4}$/,
+            psdReg = /^\d{6,10}$/,
+            name= $('#newName').val(),
+            psd = $('#newPsd').val();
+        if(nameReg.test(name) && psdReg.test(psd)){
+            $.ajax({
+                type:"POST",
+                url:"../user.php",
+                data:{
+                  type:"change",
+                  studentId:localStorage.getItem('studentId'),
+                  studentName:name,
+                  studentPsd:psd
+                },
+                success(res){
+                    let json =JSON.parse(res);
+                    let {studentId,studentName,studentPsd} =json.data;
+                       localStorage.setItem('studentId',studentId);
+                       localStorage.setItem('studentName',studentName);
+                       localStorage.setItem('studentPsd',studentPsd);
+                            $('.alert').css("display","block");
+                  $('.alert').removeClass('alert-danger'),
+                  $('.alert').addClass('alert-success');
+                  $('.alert').html('修改成功，3秒后自动跳转');
+                  setTimeout(function(){
+                      $('.alert').css("display","none");
+                  },2000)
+                  setTimeout(function(){
+                      window.location.href="./personal.html";
+                  },3000)
+                }
+            })
+        }else{
+            $('.alert').css("display","block");
+            $('.alert').removeClass('alert-success'),
+            $('.alert').addClass('alert-danger');
+            $('.alert').html('请输入正确的姓名/密码');
+            setTimeout(function(){
+                $('.alert').css("display","none");
+            },2000)
+            $("#newName").val('');
+            $("#newPsd").val('');
+        }
+    })
+    </script>
 </body>
 </html>

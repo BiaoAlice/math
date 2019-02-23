@@ -67,6 +67,7 @@
 }
 .gongneng{
     float: left;
+    display: flex;
     width: 1200px;
     height: 40px;
     margin: 19px auto 0px;

@@ -5,13 +5,30 @@ $(function(){
             id = $('#userId').val(),
             psd = $('#userPsd').val();
         if(idReg.test(id) && psdReg.test(psd)){
-            $('.alert').css("display","block");
-            $('.alert').removeClass('alert-danger'),
-            $('.alert').addClass('alert-success');
-            $('.alert').html('登录成功');
-            setTimeout(function(){
-                $('.alert').css("display","none");
-            },2000)
+            $.ajax({
+                url:"../user.php",
+                type:"POST",
+                data: {type: 'login',studentId:id,studentPsd:psd},
+                success(res){
+                    console.log(res);
+                   let result = JSON.parse(res);
+                   if(result.data){
+                       let {studentId,studentName,studentPsd} =result.data;
+                       localStorage.setItem('studentId',studentId);
+                       localStorage.setItem('studentName',studentName);
+                       localStorage.setItem('studentPsd',studentPsd);
+                       window.location.href="./index.html";
+                   }else{
+                        $('.alert').css("display","block");
+                        $('.alert').removeClass('alert-success'),
+                        $('.alert').addClass('alert-danger');
+                        $('.alert').html('用户名不存在/密码错误');
+                        setTimeout(function(){
+                            $('.alert').css("display","none");
+                        },2000)
+                   }
+                }
+            })
         }else{
             $('.alert').css("display","block");
             $('.alert').removeClass('alert-success'),

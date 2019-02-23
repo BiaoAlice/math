@@ -7,6 +7,40 @@
     <title>数学网</title>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/lianxi.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jq.js"></script>
+    <script type="text/javascript" src="js/quiz.js"></script>
+    <script type="text/javascript">
+        $(function(){
+        $('.btn').on('click',function(){
+            window.location.href="./lianxi.html";
+        })
+        $.ajax({
+            url:'../user.php',
+            type:"POST",
+            data:{
+                type:"questions"
+            },
+            success(res){
+                let list = JSON.parse(res).data;
+                console.log(list);
+                let questions = [];
+                list.forEach(item => {  
+                    questions.push({
+                        'question':item.selectName,
+                        'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                        'correctAnswer':item.answer
+                    })
+                });
+                console.log(questions);
+                var init={'questions':questions};
+                    $('#quiz-container').jquizzy({
+                        questions: init.questions
+                    });
+            }
+    })
+})    
+    </script>
 </head>
 <body>
    <div>
@@ -33,19 +67,20 @@
                     <button>搜索</button>
                 </div>
                 <div class="gongneng">
+                    <button class="btn">  </button>
                     <div class="gongnenglf">
                          <span class="ziyuan"><a href="./index.html">资源导航</a></span>
                     </div> 
                     <!-- 功能栏 -->  
                          <div class="gongnengri">
-                            <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
-                            <span><a href="./cuoti.html">错题重做</a></span>
-                            <span><a href="./zhishi.html">知识收藏</a></span>
-                            <span><a href="./zuoye.html">班级作业</a></span>
-                            <span><a href="./shijuan.html">模拟试卷</a></span>
-                            <span><a href="./tongzhi.html">班级通知</a></span>
-                            <span><a href="./tiwen.html">在线提问</a></span>
-                        </div>
+                                <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
+                                <span class="cuotichongzuo"><a href="./cuoti.html">错题重做</a></span>
+                                <span class="zhishishoucang"><a href="./zhishi.html">知识收藏</a></span>
+                                <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
+                                <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
+                                <span><a href="./tongzhi.html">班级通知</a></span>
+                                <span><a href="./tiwen.html">在线提问</a></span>
+                            </div>
                 </div>
            </div>
        </div>
@@ -69,7 +104,14 @@
                 <label for="">时、分、秒</label>
             </p>
             <!-- 内容区 -->
-            <div class="content"></div>
+            <div class="content">
+                <div>
+                    <button class="btn btn-primary">重新加载</button>
+                </div>
+                <div class="demo">
+                    <div id='quiz-container'></div>
+                </div>
+            </div>
        </div>
         <div class="friendlink">
             <div class="friend"><span>友情链接</span></div>
