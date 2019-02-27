@@ -8,13 +8,13 @@
             shortURL: null,
             sendResultsURL: null,
             resultComments: {
-                perfect: '你是爱因斯坦么?',
-                excellent: '非常优秀!',
+                perfect: '你很棒!!!',
+                excellent: '非常优秀!!!',
                 good: '很好，发挥不错!',
-                average: '一般般了。',
-                bad: '太可怜了！',
-                poor: '好可怕啊！',
-                worst: '悲痛欲绝！'
+                average: '要加油哦!!!',
+                bad: '你还不够努力哦!!！',
+                poor: '你要好好学习了哦！！！',
+                worst: '别灰心，调整心态!!！'
             }
         };
         var config = $.extend(defaults, settings);

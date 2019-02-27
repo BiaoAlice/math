@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/adminHome.css">
+    <link rel="stylesheet" href="./css/adminMessage.css">
+    <script src="./js/jq.js"></script>
+</head>
+<body>
+    <div class="box">
+        <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="./adminHome.html">后台系统</a>
+                    </div>
+                </div>
+            </nav>
+        <div class="body">
+            <div class="navleft">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="./adminStudent.html">学生管理</a></li>
+                    <li role="presentation" ><a href="./adminWork.html">作业下发</a></li>
+                    <li role="presentation" class="active"><a href="./adminMessage.html">下发通知</a></li>
+                </ul>
+            </div>
+            <div class="content">
+               <div>
+                   <h3>请输入下发的信息：</h3>
+                   <div class="form">
+                        <h4>标题：</h4>
+                        <form-group>
+                            <label for="">
+                               <input type="text" class="formcontrol" placeholder="请输入标题">
+                            </label>
+                        </form-group>
+                        <br/>  
+                        <h4>内容：</h4>
+                        <form-group>
+                            <label for="">
+                                <textarea name="" id="" cols="30" rows="10" placeholder="请输入内容"></textarea>
+                            </label>
+                        </form-group>
+                        <br/>  
+                        <form-group>
+                                <label for="">
+                                    <button class="btn btn-primary">发布</button>
+                                </label>
+                            </form-group>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+    <script>
+       $('.btn').on('click',function(){
+           let title = $('.formcontrol').val(),
+               content = $('textarea').val();
+            if(title =='' || content == ""){
+                alert('请输入标题/内容');
+            }else{
+                let date =dateFtt("yyyy-MM-dd hh:mm:ss", new Date());
+                $.ajax({
+                    url:"../user.php",
+                    type:"POST",
+                    data:{
+                        type:"addMsg",
+                        title,
+                        content,
+                        date
+                    },
+                    success(res){
+                        let json = JSON.parse(res);
+                        if(json.code == 1){
+                            alert("添加成功！");
+                            $('.formcontrol').val('');
+                            $('textarea').val('');
+                        }
+                    }
+                })
+            }
+       })
+
+function dateFtt(fmt,date)  { //author: meizz   
+    var o = {   
+        "M+" : date.getMonth()+1,                 //月份   
+        "d+" : date.getDate(),                    //日   
+        "h+" : date.getHours(),                   //小时   
+        "m+" : date.getMinutes(),                 //分   
+        "s+" : date.getSeconds(),                 //秒   
+        "q+" : Math.floor((date.getMonth()+3)/3), //季度   
+        "S"  : date.getMilliseconds()             //毫秒   
+    };   
+    if(/(y+)/.test(fmt))   
+        fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+    for(var k in o)   
+        if(new RegExp("("+ k +")").test(fmt))   
+    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+    return fmt;   
+} 
+    </script>
+</body>
+</html>

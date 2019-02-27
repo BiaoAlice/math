@@ -108,8 +108,19 @@
                 echo $json;
            };
            break;
-        case "questions":
-            $sql="select * from questions";
+        case "chaptera":
+            $sql="select * from chaptera";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $arr = array();
+            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
+                $arr[]=$res;
+            }
+            $json =json_encode(array("code"=>1,"data"=>$arr));
+            echo $json;
+            break;
+        case "chapterb":
+            $sql="select * from chapterb";
             $command=$con->prepare($sql);
             $command->execute();
             $arr = array();
@@ -160,6 +171,56 @@
             break;
         case "getWork":
             $sql="select * from homework";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $arr = array();
+            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
+                $arr[]=$res;
+            }
+            $json =json_encode(array("code"=>1,"data"=>$arr));
+            echo $json;
+            break;
+        case "volume":
+            $sql="select * from volume";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $arr = array();
+            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
+                $arr[]=$res;
+            }
+            $json =json_encode(array("code"=>1,"data"=>$arr));
+            echo $json;
+            break;
+        case "lastvolume":
+            $sql="select * from lastvolume";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $arr = array();
+            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
+                $arr[]=$res;
+            }
+            $json =json_encode(array("code"=>1,"data"=>$arr));
+            echo $json;
+            break;
+        case "addMsg":
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $date = $_POST['date'];
+            $sql = "INSERT INTO message (mesTitle, mesContent, mesTime)
+                VALUES (:mesTitle, :mesContent, :mesTime)";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $result=$command->execute(array(":mesTitle"=>$title,":mesContent"=>$content,":mesTime"=>$date));
+            if($result){
+                $json = json_encode(array("code"=>1));
+                echo $json;
+            }else{
+                $json = json_encode(array("code"=>0));
+                echo $json;
+            }
+            break;
+        case "getMsg":
+            $sql="select * from message";
             $command=$con->prepare($sql);
             $command->execute();
             $arr = array();

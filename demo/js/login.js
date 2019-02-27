@@ -10,13 +10,14 @@ $(function(){
                 type:"POST",
                 data: {type: 'login',studentId:id,studentPsd:psd},
                 success(res){
-                    console.log(res);
                    let result = JSON.parse(res);
                    if(result.data){
+                       let grade = $("input[type='radio']:checked").val(); 
                        let {studentId,studentName,studentPsd} =result.data;
                        localStorage.setItem('studentId',studentId);
                        localStorage.setItem('studentName',studentName);
                        localStorage.setItem('studentPsd',studentPsd);
+                       localStorage.setItem('grade',grade);
                        window.location.href="./index.html";
                    }else{
                         $('.alert').css("display","block");

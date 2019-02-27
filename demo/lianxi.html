@@ -10,48 +10,17 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/jq.js"></script>
     <script type="text/javascript" src="js/quiz.js"></script>
-    <script type="text/javascript">
-        $(function(){
-        $('.btn').on('click',function(){
-            window.location.href="./lianxi.html";
-        })
-        $.ajax({
-            url:'../user.php',
-            type:"POST",
-            data:{
-                type:"questions"
-            },
-            success(res){
-                let list = JSON.parse(res).data;
-                console.log(list);
-                let questions = [];
-                list.forEach(item => {  
-                    questions.push({
-                        'question':item.selectName,
-                        'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
-                        'correctAnswer':item.answer
-                    })
-                });
-                console.log(questions);
-                var init={'questions':questions};
-                    $('#quiz-container').jquizzy({
-                        questions: init.questions
-                    });
-            }
-    })
-})    
-    </script>
+
 </head>
 <body>
    <div>
        <div class="header">
            <div class="header_co">
             <!-- 左 -->
-           <span class="he_lf"><a href="./index.html"></a>>数学网<b>-寻找热爱学习的你</b></span>
+           <span class="he_lf"><a href="./index.html"></a>数学网<b>-寻找热爱学习的你</b></span>
            <!-- 右 -->
            <div class="he_ri">
                <span><a href="./personal.html">个人中心</a></span>
-               <span><a href="./help.html">帮助反馈</a></span>
                <span><a href="./about.html">关于我们</a></span>
            </div>
            </div>
@@ -60,53 +29,37 @@
        <div class="nav">
            <div class="nav_co">
                 <div class="logo">
-                    <img src="./img/logo.jpg" alt="">
+                    <img src="./images/logo.jpg" alt="">
                 </div>
                 <div class="search-input">
                     <input type="search" placeholder="搜索资料">
                     <button>搜索</button>
                 </div>
                 <div class="gongneng">
-                    <button class="btn">  </button>
                     <div class="gongnenglf">
                          <span class="ziyuan"><a href="./index.html">资源导航</a></span>
                     </div> 
                     <!-- 功能栏 -->  
                          <div class="gongnengri">
                                 <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
-                                <span class="cuotichongzuo"><a href="./cuoti.html">错题重做</a></span>
-                                <span class="zhishishoucang"><a href="./zhishi.html">知识收藏</a></span>
                                 <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
                                 <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
                                 <span><a href="./tongzhi.html">班级通知</a></span>
-                                <span><a href="./tiwen.html">在线提问</a></span>
                             </div>
                 </div>
            </div>
        </div>
        <!-- 基础练习 -->
        <div class="lianxi">
-            <p>年级：<label for="">二年级</label></p>
-            <p class="fc">上册：
-                <label for="">100以内的加法和减法</label>
-                <label for="">厘米和米的认识</label>
-                <label for="">表内乘法</label>
-                <label for="">表内除法</label>
-                <label for="">角和直角</label>
-                <label for="">表内乘法和表内除法</label>
+            <p>年级：<span class="grade"></span></p>
+            <p class="sc">上册：
             </p>
-            <p class="fc">下册：
-                <label for="">有余的除法</label>
-                <label for="">混合运算和两步运算应用题</label>
-                <label for="">万以内的读法和写法</label>
-                <label for="">千克的初步认识</label>
-                <label for="">万以内的加法和减法</label>
-                <label for="">时、分、秒</label>
+            <p class="xc">下册：
             </p>
             <!-- 内容区 -->
             <div class="content">
                 <div>
-                    <button class="btn btn-primary">重新加载</button>
+                    <button class="btn btn-primary">重新做题</button>
                 </div>
                 <div class="demo">
                     <div id='quiz-container'></div>
@@ -130,5 +83,148 @@
             </p>
          </div> 
    </div>
+   <script type="text/javascript">
+    $(function(){
+        let grade = localStorage.getItem('grade'),
+            grade1 ='';
+            switch(grade){
+                case 'one':
+                    grade1 = "一年级";
+                    break;
+                case 'two':
+                    grade1 = "二年级";
+                    break;
+                case 'three':
+                    grade1 = "三年级";
+                    break;
+                case 'four':
+                    grade1 = "四年级";
+                    break;
+                case 'five':
+                    grade1 = "五年级";
+                    break;
+                default:
+                    grade1 = "六年级";
+            }
+        $('.grade').text(grade1);
+    $('.btn').on('click',function(){
+        window.location.href="./lianxi.html";
+    })
+  
+    let str1 = '';
+    $.ajax({
+        url:'../user.php',
+        type:"POST",
+        data:{
+            type:"volume"
+        },
+        success(res){
+            let json = JSON.parse(res);
+            json.data.forEach(item=>{
+                str1 += `<label style="margin-right:20px" for="">${item.name}</label>`;
+            })
+            
+           $('.sc').html($('.sc').html()+str1);
+           $('.sc label').eq(0).css("color","red");
+           $('.sc label').eq(0).on('click',function(){
+                $('.sc label').eq(0).css("color","red");
+                $('.xc label').eq(0).css("color","black");
+                
+                        $.ajax({
+                    url:'../user.php',
+                    type:"POST",
+                    data:{
+                        type:"chaptera"
+                    },
+                    success(res){
+                        let list = JSON.parse(res).data;
+                        console.log(list);
+                        let questions = [];
+                        list.forEach(item => {  
+                            questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                                'correctAnswer':item.answer
+                            })
+                        });
+                        var init={'questions':questions};
+                            $('#quiz-container').jquizzy({
+                                questions: init.questions
+                            });
+                    }
+            })
+           })
+        }
+    })
+    let str2 = ''
+    $.ajax({
+        url:'../user.php',
+        type:"POST",
+        data:{
+            type:"lastvolume"
+        },
+        success(res){
+            let json = JSON.parse(res);
+            json.data.forEach(item=>{
+                str2 += `<label style="margin-right:20px" for="">${item.name}</label>`;
+            })
+            
+           $('.xc').html($('.xc').html()+str2);
+           $('.xc label').eq(0).on('click',function(){
+                $('.sc label').eq(0).css("color","black");
+                $('.xc label').eq(0).css("color","red");
+                $.ajax({
+                    url:'../user.php',
+                    type:"POST",
+                    data:{
+                        type:"chapterb"
+                    },
+                    success(res){
+                        let list = JSON.parse(res).data;
+                        console.log(list);
+                        let questions = [];
+                        list.forEach(item => {  
+                            questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                                'correctAnswer':item.answer
+                            })
+                        });
+                        var init={'questions':questions};
+                            $('#quiz-container').jquizzy({
+                                questions: init.questions
+                            });
+                    }
+            })
+           })
+        }
+    })
+    $.ajax({
+        url:'../user.php',
+        type:"POST",
+        data:{
+            type:"chaptera"
+        },
+        success(res){
+            let list = JSON.parse(res).data;
+            console.log(list);
+            let questions = [];
+            list.forEach(item => {  
+                questions.push({
+                    'question':item.selectName,
+                    'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                    'correctAnswer':item.answer
+                })
+            });
+            console.log(questions);
+            var init={'questions':questions};
+                $('#quiz-container').jquizzy({
+                    questions: init.questions
+                });
+        }
+})
+    
+})    
+</script>
 </body>
 </html>
