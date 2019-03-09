@@ -144,7 +144,7 @@
                 $('.xc label').eq(0).css("color","black");
                 $('.content-box').css("display","block");
                 $('#quiz-container').css("display","none");
-                $('#content-dev').html(content1);
+                $('.content-dev').html(content1);
                 $('.btn-box').html('<button class="first">开始</button>');
                 $('.first').on('click',function(){
                     let val = $("input[type='radio']:checked").val(); 
@@ -189,6 +189,7 @@
                 $('.xc label').eq(0).css("color","black");
                 $('#quiz-container').css("display","none");
                 $('.content-box').css("display","block");
+                $('.content-dev').html(content2);
                 $('.btn-box').html('<button class="second">开始</button>');                
                 $('.second').on('click',function(){
                     let val = $("input[type='radio']:checked").val();
@@ -252,7 +253,8 @@
                 $('.sc label').eq(0).css("color","black");
                 $('#quiz-container').css("display","none");
                 $('.content-box').css("display","block");
-                $('.btn-box').html('<button class="third">开始</button>');                
+                $('.btn-box').html('<button class="third">开始</button>');
+                $('.content-dev').html(content3);                
                 $('.third').on('click',function(){
                     let val = $("input[type='radio']:checked").val();
                     $('.content-box').css("display","none");
