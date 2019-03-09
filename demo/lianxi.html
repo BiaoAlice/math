@@ -41,11 +41,11 @@
                     </div> 
                     <!-- 功能栏 -->  
                          <div class="gongnengri">
-                                <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
-                                <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
-                                <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
-                                <span><a href="./tongzhi.html">班级通知</a></span>
-                            </div>
+                            <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
+                            <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
+                            <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
+                            <span><a href="./tongzhi.html">班级通知</a></span>
+                        </div>
                 </div>
            </div>
        </div>
@@ -59,7 +59,17 @@
             <!-- 内容区 -->
             <div class="content">
                 <div>
-                    <button class="btn btn-primary">重新做题</button>
+                    <div class="content-box">
+                        <div class="content-dev"></div>
+                        <div class="choose">
+                            <input type="radio" value="soEasy" name="optionsRadios" checked>简单
+                            <input type="radio" value="easy" name="optionsRadios">一般
+                            <input type="radio" value="diff" name="optionsRadios">困难
+                        </div>
+                        <div class="btn-box">
+
+                        </div>
+                    </div>
                 </div>
                 <div class="demo">
                     <div id='quiz-container'></div>
@@ -85,6 +95,9 @@
    </div>
    <script type="text/javascript">
     $(function(){
+        let content1 = '第一章';
+        let content2 = '第二章';
+        let content3 = '第三章';
         let grade = localStorage.getItem('grade'),
             grade1 ='';
             switch(grade){
@@ -123,37 +136,99 @@
             json.data.forEach(item=>{
                 str1 += `<label style="margin-right:20px" for="">${item.name}</label>`;
             })
-            
+           
            $('.sc').html($('.sc').html()+str1);
-           $('.sc label').eq(0).css("color","red");
            $('.sc label').eq(0).on('click',function(){
-                $('.sc label').eq(0).css("color","red");
+                $(this).css("color","red");
+                $('.sc label').eq(1).css("color","black");
                 $('.xc label').eq(0).css("color","black");
-                
-                        $.ajax({
-                    url:'../user.php',
-                    type:"POST",
-                    data:{
-                        type:"chaptera"
-                    },
-                    success(res){
-                        let list = JSON.parse(res).data;
-                        console.log(list);
-                        let questions = [];
-                        list.forEach(item => {  
-                            questions.push({
+                $('.content-box').css("display","block");
+                $('#quiz-container').css("display","none");
+                $('#content-dev').html(content1);
+                $('.btn-box').html('<button class="first">开始</button>');
+                $('.first').on('click',function(){
+                    let val = $("input[type='radio']:checked").val(); 
+                    $('.content-box').css("display","none");
+                    $('#quiz-container').css("display","block");
+                    $.ajax({
+                        url:'../user.php',
+                        type:"POST",
+                        data:{
+                            type:"base",
+                            db :`chaptera${val}` 
+                        },
+                        success(res){
+                            let list = JSON.parse(res).data;
+                            let questions = [];
+                            list.forEach(item => {
+                            if(item.opationC == ''){
+                                questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB],
+                                'correctAnswer':item.answer
+                                })
+                            }else{
+                                questions.push({
                                 'question':item.selectName,
                                 'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
                                 'correctAnswer':item.answer
-                            })
+                                })
+                            } 
                         });
                         var init={'questions':questions};
                             $('#quiz-container').jquizzy({
                                 questions: init.questions
                             });
-                    }
+                                }
+                            })
+               })
             })
-           })
+            $('.sc label').eq(1).on('click',function(){
+                $(this).css("color","red");
+                $('.sc label').eq(0).css("color","black");
+                $('.xc label').eq(0).css("color","black");
+                $('#quiz-container').css("display","none");
+                $('.content-box').css("display","block");
+                $('.btn-box').html('<button class="second">开始</button>');                
+                $('.second').on('click',function(){
+                    let val = $("input[type='radio']:checked").val();
+                    $('.content-box').css("display","none");
+                    $('#quiz-container').css("display","block");
+                    $.ajax({
+                        url:'../user.php',
+                        type:"POST",
+                        data:{
+                            type:"base",
+                            db :`chapterb${val}` 
+                        },
+                        success(res){
+                            let list = JSON.parse(res).data;
+                            let questions = [];
+                            list.forEach(item => {
+                            console.log(item.opationC)
+                            if(item.opationC == ''){
+                                questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB],
+                                'correctAnswer':item.answer
+                                })
+                            }else{
+                                questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                                'correctAnswer':item.answer
+                                })
+                            } 
+                        });
+                        var init={'questions':questions};
+                            $('#quiz-container').jquizzy({
+                                questions: init.questions
+                            });
+                        }
+                    })
+                    
+               })
+            })
         }
     })
     let str2 = ''
@@ -171,58 +246,53 @@
             
            $('.xc').html($('.xc').html()+str2);
            $('.xc label').eq(0).on('click',function(){
+            $(this).css("color","red");
+                $(this).css("color","red");
+                $('.sc label').eq(1).css("color","black");
                 $('.sc label').eq(0).css("color","black");
-                $('.xc label').eq(0).css("color","red");
-                $.ajax({
-                    url:'../user.php',
-                    type:"POST",
-                    data:{
-                        type:"chapterb"
-                    },
-                    success(res){
-                        let list = JSON.parse(res).data;
-                        console.log(list);
-                        let questions = [];
-                        list.forEach(item => {  
-                            questions.push({
+                $('#quiz-container').css("display","none");
+                $('.content-box').css("display","block");
+                $('.btn-box').html('<button class="third">开始</button>');                
+                $('.third').on('click',function(){
+                    let val = $("input[type='radio']:checked").val();
+                    $('.content-box').css("display","none");
+                    $('#quiz-container').css("display","block");
+                    $.ajax({
+                        url:'../user.php',
+                        type:"POST",
+                        data:{
+                            type:"base",
+                            db :`chapterc${val}` 
+                        },
+                        success(res){
+                            let list = JSON.parse(res).data;
+                            let questions = [];
+                            list.forEach(item => {
+                            if(item.opationC == ''){
+                                questions.push({
+                                'question':item.selectName,
+                                'answers':[item.opationA,item.opationB],
+                                'correctAnswer':item.answer
+                                })
+                            }else{
+                                questions.push({
                                 'question':item.selectName,
                                 'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
                                 'correctAnswer':item.answer
-                            })
+                                })
+                            } 
                         });
                         var init={'questions':questions};
                             $('#quiz-container').jquizzy({
                                 questions: init.questions
                             });
-                    }
-            })
+                        }
+                    })
+                    
+               })
            })
         }
     })
-    $.ajax({
-        url:'../user.php',
-        type:"POST",
-        data:{
-            type:"chaptera"
-        },
-        success(res){
-            let list = JSON.parse(res).data;
-            console.log(list);
-            let questions = [];
-            list.forEach(item => {  
-                questions.push({
-                    'question':item.selectName,
-                    'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
-                    'correctAnswer':item.answer
-                })
-            });
-            console.log(questions);
-            var init={'questions':questions};
-                $('#quiz-container').jquizzy({
-                    questions: init.questions
-                });
-        }
-})
     
 })    
 </script>

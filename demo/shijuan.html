@@ -12,42 +12,44 @@
     <script type="text/javascript" src="js/quiz.js"></script>
     <script type="text/javascript">
         $(function(){
-        $('.btn').on('click',function(){
-            window.location.href="./shijuan.html";
+        $('.start').on('click',function(){
+            $('#quiz-container').css("display","none");
+            let val = $("input[type='radio']:checked").val(); 
+                    $('.content-box').css("display","none");
+                    $('#quiz-container').css("display","block");
+                    $.ajax({
+                        url:'../user.php',
+                        type:"POST",
+                        data:{
+                            type:"test",
+                            db :`${val}` 
+                        },
+                        success(res){ 
+                            let list = JSON.parse(res).data;
+                            let questions = [];
+                            list.forEach(item => {
+                            if(item.opationC == ''){
+                                questions.push({
+                                'question':item.title,
+                                'answers':[item.opationA,item.opationB],
+                                'correctAnswer':item.answer
+                                })
+                            }else{
+                                questions.push({
+                                'question':item.title,
+                                'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
+                                'correctAnswer':item.answer
+                                })
+                            } 
+                        });
+                        var init={'questions':questions};
+                            $('#quiz-container').jquizzy({
+                                questions: init.questions
+                            });
+                        }
+                    })
         })
-        $.ajax({
-            url:'../user.php',
-            type:"POST",
-            data:{
-                type:"test"
-            },
-            success(res){
-                let list = JSON.parse(res).data;
-                console.log(list);
-                let questions = [];
-                list.forEach(item => {
-                    console.log(item.opationC)
-                    if(item.opationC == ''){
-                        questions.push({
-                        'question':item.title,
-                        'answers':[item.opationA,item.opationB],
-                        'correctAnswer':item.answer
-                        })
-                    }else{
-                        questions.push({
-                        'question':item.title,
-                        'answers':[item.opationA,item.opationB,item.opationC,item.opationD],
-                        'correctAnswer':item.answer
-                        })
-                    } 
-                });
-                console.log(questions);
-                var init={'questions':questions};
-                    $('#quiz-container').jquizzy({
-                        questions: init.questions
-                    });
-            }
-    })
+        
 })    
     </script>
 </head>
@@ -90,7 +92,14 @@
        </div>
        <!-- 模拟试卷 -->
        <div class="shijuan">
-           <button class="btn">重新做题</button>
+           <div class="choose">
+                <input type="radio" value="unit" name="optionsRadios" checked>单元测试
+                <input type="radio" value="mid" name="optionsRadios">期中考试
+                <input type="radio" value="final" name="optionsRadios">期末考试
+            </div>
+            <div class="btn-box">
+                <button class="start">开始</button> 
+            </div>
             <div class="demo">
                 <div id='quiz-container'></div>
             </div>

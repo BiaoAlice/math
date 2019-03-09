@@ -108,19 +108,9 @@
                 echo $json;
            };
            break;
-        case "chaptera":
-            $sql="select * from chaptera";
-            $command=$con->prepare($sql);
-            $command->execute();
-            $arr = array();
-            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
-                $arr[]=$res;
-            }
-            $json =json_encode(array("code"=>1,"data"=>$arr));
-            echo $json;
-            break;
-        case "chapterb":
-            $sql="select * from chapterb";
+        case "base":
+            $db = $_POST['db'];
+            $sql="select * from ".$db;
             $command=$con->prepare($sql);
             $command->execute();
             $arr = array();
@@ -131,7 +121,8 @@
             echo $json;
             break;
         case "test":
-            $sql="select * from test";
+            $db = $_POST['db'];
+            $sql="select * from ".$db;
             $command=$con->prepare($sql);
             $command->execute();
             $arr = array();
