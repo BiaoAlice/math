@@ -27,48 +27,37 @@
        </div>
        <!-- 导航 -->
        <div class="nav">
-           <div class="nav_co">
-                <div class="logo">
-                    <img src="./images/logo.jpg" alt="">
-                </div>
-                <div class="search-input">
-                    <input type="search" placeholder="搜索资料">
-                    <button>搜索</button>
-                </div>
-                <div class="gongneng">
-                    <div class="gongnenglf">
-                         <span class="ziyuan"><a href="./index.html">资源导航</a></span>
-                    </div> 
-                    <!-- 功能栏 -->  
-                         <div class="gongnengri">
-                            <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
-                            <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
-                            <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
-                            <span><a href="./tongzhi.html">班级通知</a></span>
-                        </div>
-                </div>
-           </div>
-       </div>
+            <div class="nav_co">
+                 <div class="logo">
+                     <img src="./images/logo.jpg" alt="">
+                 </div>
+                 <div class="gongneng">
+                     <span><a href="./index.html">网站首页</a></span>
+                     <span class="shouye"><a href="./lianxi.html">基础练习</a></span>
+                     <span><a href="./zuoye.html">班级作业</a></span>
+                     <span><a href="./shijuan.html">模拟试卷</a></span>
+                     <span><a href="./tongzhi.html">班级通知</a></span>
+                 </div>         
+             </div>
+        </div>
        <!-- 基础练习 -->
        <div class="lianxi">
-            <p>年级：<span class="grade"></span></p>
-            <p class="sc">上册：
-            </p>
-            <p class="xc">下册：
-            </p>
+            <span class="xz">你选择的年级是：</span><span class="grade"></span>
+            <p  class="tk">上册题库：</p><p class="sc"></p>
+            <p class="tk">下册题库：</p><p class="xc"></p>
             <!-- 内容区 -->
             <div class="content">
                 <div>
                     <div class="content-box">
+                        <div class="content-zj">章节简介</div>
                         <div class="content-dev"></div>
                         <div class="choose">
+                            <span>请选择挑战难度：</span>
                             <input type="radio" value="soEasy" name="optionsRadios" checked>简单
                             <input type="radio" value="easy" name="optionsRadios">一般
                             <input type="radio" value="diff" name="optionsRadios">困难
                         </div>
-                        <div class="btn-box">
-
-                        </div>
+                        <div class="btn-box"></div>
                     </div>
                 </div>
                 <div class="demo">
@@ -95,9 +84,9 @@
    </div>
    <script type="text/javascript">
     $(function(){
-        let content1 = '第一章';
-        let content2 = '第二章';
-        let content3 = '第三章';
+        let content1 = '本章节主要学习100以内的加法和减法，主要的知识模块有:加法，笔算加法的计算方式，（1）相同位数要对齐、（2）从个位加起、（3）个位上的数相加满十，向十位进1；减法；连加、连减和加减混合；';
+        let content2 = '本章节主要学习厘米和米，主要的知识模块有厘米和米，具体内容：（1）厘米和米是计量物体长度的单位 1米=100厘米、（2）测量较短的物体，用“厘米”作单位，测量较长的物体用“米”、（3）用尺子量物体长度时，把尺子的刻度0对准物体的左端，再看物体的另一端对着刻度几，就是几厘米；';
+        let content3 = '本章节主要学习有余的除法，具体内容：（1）有余的除法的意义：在平均分一些物体时，有时会有剩余、（2）余数与除数的关系：在有余数的除法中，余数必须必除数小。最大的余数小于除数1，最小的余数是1;';
         let grade = localStorage.getItem('grade'),
             grade1 ='';
             switch(grade){
@@ -134,18 +123,18 @@
         success(res){
             let json = JSON.parse(res);
             json.data.forEach(item=>{
-                str1 += `<label style="margin-right:20px" for="">${item.name}</label>`;
+                str1 += `<label style="margin-right:20px" for="" class="ys">${item.name}</label>`;
             })
            
            $('.sc').html($('.sc').html()+str1);
            $('.sc label').eq(0).on('click',function(){
-                $(this).css("color","red");
+                $(this).css("color","green");
                 $('.sc label').eq(1).css("color","black");
                 $('.xc label').eq(0).css("color","black");
                 $('.content-box').css("display","block");
                 $('#quiz-container').css("display","none");
                 $('.content-dev').html(content1);
-                $('.btn-box').html('<button class="first">开始</button>');
+                $('.btn-box').html('<button class="first">开始做题</button>');
                 $('.first').on('click',function(){
                     let val = $("input[type='radio']:checked").val(); 
                     $('.content-box').css("display","none");
@@ -184,13 +173,13 @@
                })
             })
             $('.sc label').eq(1).on('click',function(){
-                $(this).css("color","red");
+                $(this).css("color","green");
                 $('.sc label').eq(0).css("color","black");
                 $('.xc label').eq(0).css("color","black");
                 $('#quiz-container').css("display","none");
                 $('.content-box').css("display","block");
                 $('.content-dev').html(content2);
-                $('.btn-box').html('<button class="second">开始</button>');                
+                $('.btn-box').html('<button class="second">开始做题</button>');                
                 $('.second').on('click',function(){
                     let val = $("input[type='radio']:checked").val();
                     $('.content-box').css("display","none");
@@ -242,18 +231,17 @@
         success(res){
             let json = JSON.parse(res);
             json.data.forEach(item=>{
-                str2 += `<label style="margin-right:20px" for="">${item.name}</label>`;
+                str2 += `<label style="margin-right:20px" for="" class="ys">${item.name}</label>`;
             })
             
            $('.xc').html($('.xc').html()+str2);
            $('.xc label').eq(0).on('click',function(){
-            $(this).css("color","red");
-                $(this).css("color","red");
+                $(this).css("color","green");
                 $('.sc label').eq(1).css("color","black");
                 $('.sc label').eq(0).css("color","black");
                 $('#quiz-container').css("display","none");
                 $('.content-box').css("display","block");
-                $('.btn-box').html('<button class="third">开始</button>');
+                $('.btn-box').html('<button class="third">开始做题</button>');
                 $('.content-dev').html(content3);                
                 $('.third').on('click',function(){
                     let val = $("input[type='radio']:checked").val();

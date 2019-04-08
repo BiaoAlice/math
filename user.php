@@ -221,6 +221,49 @@
             $json =json_encode(array("code"=>1,"data"=>$arr));
             echo $json;
             break;
+        case "addScore":
+            $studentId = $_POST['studentId'];
+            $studentName = $_POST['studentName'];
+            $studentScore = $_POST['score'];
+            $sql="select * from studentScore where studentId=:studentId";
+            $command=$con->prepare($sql);
+            $command->execute(array(":studentId"=>$studentId));
+            $res = $command->fetch(PDO::FETCH_ASSOC);
+            var_dump($res);
+            if($res){
+                $sql2 = "UPDATE studentScore SET studentScore = :studentScore WHERE studentId = :studentId";
+                $command=$con->prepare($sql2);
+                $result=$command->execute(array(":studentScore"=>$studentScore,":studentId"=>$studentId));
+                if($result){
+                    $json = json_encode(array("code"=>1));
+                    echo $json;
+                }
+            }else{
+                $sql1 = "INSERT INTO studentScore (studentName, studentId, studentScore)
+                    VALUES (:studentName, :studentId, :studentScore)";
+                $command=$con->prepare($sql1);
+                $command->execute();
+                $result=$command->execute(array(":studentName"=>$studentName,":studentId"=>$studentId,":studentScore"=>$studentScore));
+                if($result){
+                    $json = json_encode(array("code"=>1));
+                    echo $json;
+                }else{
+                    $json = json_encode(array("code"=>0));
+                    echo $json;
+                }
+            }
+            break;
+        case "getScore":
+            $sql="select * from studentScore";
+            $command=$con->prepare($sql);
+            $command->execute();
+            $arr = array();
+            while( $res=$command->fetch(PDO::FETCH_ASSOC)){
+                $arr[]=$res;
+            }
+            $json =json_encode(array("code"=>1,"data"=>$arr));
+            echo $json;
+            break;
     }   
             $con = null;
 ?>

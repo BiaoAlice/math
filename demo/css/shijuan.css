@@ -1,9 +1,18 @@
 .monishijuan{
-    background-color:brown;
-}
-.shijuan{
     width: 1200px;
     height: 800px;
     margin: 0 auto 0;
-    border: 1px sloid red;
+    background-color: beige;
+}
+.choose{
+    width: 480px;
+    height: 30px;
+    margin: 30px auto 0;
+}
+.btn-box{
+    width: 110px;
+    margin: 10px auto 30px;
+}
+.choose input{
+    margin-left: 16px;
 }

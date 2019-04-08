@@ -1,31 +1,92 @@
 .lianxi{
     width: 1200px;
-    height: 1000px;
-    margin: 0 auto 0;
-    border: 1px sloid red;
+    height: 800px;
+    margin: 20px auto 0;
+    background-image:url(../images/login1.jpg) ;
+    background-size: cover;
+}
+.lianxi .xz{
+    height: 28px;
+    border:1px solid #66ccff;
+    background-color: #ffcc99;
+    border-radius: 50px;
+    padding: 4px;
+    font-size: 18px;
+}
+.tk{
+    width: 100px;
+    height: 28px;
+    border:1px solid #66ccff;
+    background-color: #ffcc99;
+    border-radius: 50px;
+    padding: 4px;
+    font-size: 18px;
+}
+.grade{
+    margin-left: 8px;
+    font-size: 22px;
+    text-decoration: underline;
+}
+.grade,.sc,.xc{
+    font-size: 18px;
+    margin-left: 20px;
+    /* color: #ffcc99; */
+}
+.grade:hover{
+    background-color: wheat;
+    font-weight: bolder;
+}
+.ys:hover{
+    background-color: wheat;
+    font-weight: bolder;
 }
 .jichulianxi{
     background-color:brown;
-}
+} 
 .lianxi .fc label{
     margin-left: 30px;
 }
 p{
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .lianxi .content{
     height: 600px;
 }
 .content{
-   margin-top:100px;
+   margin-top:60px;
 }
 .content-box{
     width:1200px;
-    height:300px;
-    border:1px solid black;
+    height:500px;
+    border:1px solid green;
     display: none;
 }
-.content-dev{
-    width: 1200px;
-    height:200px;
+.content-zj{
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bolder;
+    margin: 0 auto 0;
 }
+.content-dev{
+    width: 1000px;
+    height:auto;
+    padding: 20px;
+    font-size: 16px;
+    margin: 0 auto 0;
+    border:3px solid #66ccff;
+    border-radius: 50px;
+}
+.btn-box{
+    width: 110px;
+    margin: 10px auto 0;
+}
+.choose{
+    width: 380px;
+    height: 30px;
+    margin: 30px auto 0;
+}
+.choose input{
+    margin-left: 16px;
+}
+

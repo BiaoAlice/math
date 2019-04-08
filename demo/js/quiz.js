@@ -168,7 +168,7 @@
                     trueCount++;
                     isCorrect = true;
                 }
-                resultSet += '<div class="result-row">' + (results[i] === true ? "<div class='correct'>"+(i + 1)+"<span></span></div>": "<div class='wrong'>"+(i + 1)+"<span></span></div>");
+                resultSet += '<div class="result-row">' + (results[i] === true ? "<div class='correct'>"+(i + 1)+"</div>": "<div class='wrong'>"+(i + 1)+"</div>");
                 resultSet += '<div class="resultsview-qhover">' + config.questions[i].question;
                 resultSet += "<ul>";
                 for (answersIteratorIndex = 0; answersIteratorIndex < config.questions[i].answers.length; answersIteratorIndex++) {
@@ -186,6 +186,21 @@
             score = roundReloaded(trueCount / questionLength * 100, 2);
             
             resultSet = '<h2 class="qTitle">' + judgeSkills(score) + '<br/> 您的分数： ' + score + '</h2>'+'<p>绿色代表正确，红色代表错误。</p>' + shareButton + '<div class="jquizzy-clear"></div>' + resultSet + '<div class="jquizzy-clear"></div>';
+            let studentId = localStorage.getItem("studentId"),
+                studentName = localStorage.getItem("studentName");
+            $.ajax({
+                url:'../user.php',
+                type:"post",
+                data:{
+                    type:"addScore",
+                    studentId,
+                    studentName,
+                    score
+                },
+                success(data){
+                    // console.log(data);
+                }
+            })
             superContainer.find('.result-keeper').html(resultSet).show(500);
             superContainer.find('.resultsview-qhover').hide();
             superContainer.find('.result-row').hover(function() {

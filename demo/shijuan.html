@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>班级作业</title>
+    <title>模拟试卷</title>
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/shijuan.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -68,37 +68,29 @@
        </div>
        <!-- 导航 -->
        <div class="nav">
-           <div class="nav_co">
-                <div class="logo">
-                    <img src="./images/logo.jpg" alt="">
-                </div>
-                <div class="search-input">
-                    <input type="search" placeholder="搜索资料">
-                    <button>搜索</button>
-                </div>
-                <div class="gongneng">
-                    <div class="gongnenglf">
-                         <span class="ziyuan"><a href="./index.html">资源导航</a></span>
-                    </div> 
-                    <!-- 功能栏 -->  
-                         <div class="gongnengri">
-                            <span class="jichulianxi"><a href="./lianxi.html">基础练习</a></span>
-                            <span class="banjizuoye"><a href="./zuoye.html">班级作业</a></span>
-                            <span class="monishijuan"><a href="./shijuan.html">模拟试卷</a></span>
-                            <span><a href="./tongzhi.html">班级通知</a></span>
-                        </div>
-                </div>
-           </div>
-       </div>
+            <div class="nav_co">
+                 <div class="logo">
+                     <img src="./images/logo.jpg" alt="">
+                 </div>
+                 <div class="gongneng">
+                     <span><a href="./index.html">网站首页</a></span>
+                     <span><a href="./lianxi.html">基础练习</a></span>
+                     <span><a href="./zuoye.html">班级作业</a></span>
+                     <span class="shouye"><a href="./shijuan.html">模拟试卷</a></span>
+                     <span><a href="./tongzhi.html">班级通知</a></span>
+                 </div>         
+             </div>
+         </div>
        <!-- 模拟试卷 -->
-       <div class="shijuan">
+       <div class="monishijuan">
            <div class="choose">
+                <span>请选择练习模式：</span>
                 <input type="radio" value="unit" name="optionsRadios" checked>单元测试
                 <input type="radio" value="mid" name="optionsRadios">期中考试
                 <input type="radio" value="final" name="optionsRadios">期末考试
             </div>
             <div class="btn-box">
-                <button class="start">开始</button> 
+                <button class="start">开始做题</button> 
             </div>
             <div class="demo">
                 <div id='quiz-container'></div>
